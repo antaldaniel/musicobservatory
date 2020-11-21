@@ -1,6 +1,6 @@
 Package: musicobservatory
 Title: Music Observatory Data
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Daniel",
            family = "Antal",
