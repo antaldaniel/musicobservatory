@@ -90,6 +90,8 @@ check_dataframe <- function(dat) {
 
 add_method <- function(dat) {
   
+  values <- NULL
+  
   dat %>% mutate (  method = ifelse ( is.na(values),
                                       yes = 'missing',
                                       no = 'actual'))
@@ -97,6 +99,8 @@ add_method <- function(dat) {
 }
 
 download_eurostat <- function ( code ) {
+  
+  retrieve_date <- NULL
   
   safely_get_eurostat <- purrr::safely (eurostat::get_eurostat)
   this_table <- safely_get_eurostat(code)
@@ -120,7 +124,7 @@ download_eurostat <- function ( code ) {
 
 create_eurostat_table <- function ( dat, code, retrieve_date ) {
   
-  . <- NULL
+  . <- create_tables <- NULL
   
   dat %>%
     create_tables ( eurostat_table =.,
@@ -254,8 +258,9 @@ fix_indicator <- function ( eurostat_table, id) {
   if (! 'unit' %in% names(eurostat_table) ) {
     if ( id == "sbs_r_nuts06_r2") {
       
-      metadata <- create_metadata_table(eurostat_table, id ) %>%
+      metadata <- create_metadata_table(eurostat_table, id) %>%
         dplyr::rename  (unit_correct = unit )
+      
       eurostat_table %>%
         mutate ( unit = tolower(indic_sb)) }
     
