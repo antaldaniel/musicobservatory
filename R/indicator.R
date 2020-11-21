@@ -45,10 +45,11 @@
 
 indicator <- function(x, 
                       shortcode, 
+                      indicator_name = NULL,
                       description,
-                      date_created, 
-                      date_earliest,
-                      date_latest,
+                      date_created = NULL, 
+                      date_earliest = NULL,
+                      date_latest = NULL,
                       original_source = NA_character_,
                       original_code = NA_character_,
                       keyword1, 
@@ -56,14 +57,26 @@ indicator <- function(x,
                       keyword3, 
                       keywords = NA_character_ ) {
   
-  assertthat::assert_that(is.data.frame(x))
-  assertthat::assert_that(is.date(date_created))
-  assertthat::assert_that(nchar(shortcode)>1)
-  assertthat::assert_that(nchar(keyword1)>1)
-  assertthat::assert_that(nchar(keyword2)>1)
-  assertthat::assert_that(nchar(keyword3)>1)
-  assertthat::assert_that(nchar(description)>3)
+  if ( is.null(date_created) ) {
+    date_created <- Sys.Date() }
   
+  
+  assertthat::assert_that(is.data.frame(x))
+  assertthat::assert_that(nchar(shortcode)>1, msg = 'Shortcode is too short or missing')
+  assertthat::assert_that(nchar(keyword1)>1, msg = "keyword1 is too short or missing")
+  assertthat::assert_that(nchar(keyword2)>1, msg = "keyword2 is too short or missing")
+  assertthat::assert_that(nchar(keyword3)>1, msg = "keyword3 is too short or missing")
+  assertthat::assert_that(nchar(description)>3, msg = "description is too short or missing")
+  
+  if ( is.null(indicator_name)) indicator_name <- shortcode
+  if ( is.null(date_earliest)) {
+    date_earliest = min(x$time, na.rm=TRUE)
+  }
+  
+  if ( is.null(date_latest)) {
+    date_latest = max(x$time, na.rm=TRUE)
+  }
+
   if ( length(keywords) == 1 &  is.na(keywords[1])) {
     keywords <- c(keyword1, keyword2, keyword3)
   } else {
@@ -76,6 +89,7 @@ indicator <- function(x,
   
   new_indicator (x = x, 
                  shortcode = shortcode, 
+                 indicator_name = indicator_name,
                  description = description,
                  date_created = date_created, 
                  date_earliest = date_earliest,
@@ -120,6 +134,7 @@ print.indicator <- function(x, ... ) {
 
 new_indicator <- function(x, 
                           shortcode, 
+                          indicator_name,
                           description,
                           date_created, 
                           date_earliest,
@@ -140,6 +155,7 @@ new_indicator <- function(x,
   
   indicator <- x
   attr(indicator, "shortcode") <- shortcode
+  attr(indicator, "indicator_name") <- indicator_name
   attr(indicator, "description") <- description
   attr(indicator, "date_created") <- date_created
   attr(indicator, "date_earliest") <- date_earliest
