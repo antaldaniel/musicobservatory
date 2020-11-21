@@ -27,10 +27,12 @@ is.indicator(x)
 \method{print}{indicator}(x, ...)
 }
 \arguments{
-\item{x}{A data.frame or tibble.}
+\item{x}{A data.frame or tibble}
 
 \item{shortcode}{A short, unique, programatically usable indicator
 ID.}
+
+\item{indicator_name}{A unique name for the indicator.}
 
 \item{description}{A precise character string describing the indicator
 for the data catalogue of the data observatory.}

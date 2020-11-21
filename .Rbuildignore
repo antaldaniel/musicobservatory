@@ -5,6 +5,7 @@
 ^tables$
 ^data-raw$
 ^not_included$
+^docs$
 ^README\.Rmd$
 ^\.travis\.yml$
 ^CODE_OF_CONDUCT\.md$

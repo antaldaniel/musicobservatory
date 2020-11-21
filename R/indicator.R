@@ -3,7 +3,8 @@
 #' The class inherits all methods from a data frame, but has
 #' many fixed attributes.
 #'
-#' @param x A data.frame or tibble.
+#' @param x A data.frame or tibble
+#' @param indicator_name A unique name for the indicator.
 #' @param  shortcode A short, unique, programatically usable indicator
 #' ID.
 #' @param description A precise character string describing the indicator 
