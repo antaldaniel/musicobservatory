@@ -7,13 +7,14 @@ create_eurostat_source <- function(code) {
   paste0( eurostat::label_eurostat_tables(code), " [Eurostat]")
 }
 
-
 eurostat_download_label <- function (code) {
   
   tmp <- eurostat::get_eurostat(code, time_format = "num") 
   join_by_vars <- names(tmp)[! names(tmp) %in% c("time", "values", "geo")]
   
-  tmp %>% left_join ( eurostat_create_metadata_information(tmp), by = join_by_vars )
+  tmp %>%
+    left_join ( eurostat_create_metadata_information(tmp),
+                by = join_by_vars )
 }
 
 #' @importFrom dplyr select distinct_all left_join bind_cols
