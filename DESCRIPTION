@@ -22,7 +22,11 @@ Imports:
     stats,
     tidyr,
     assertthat,
-    purrr
+    purrr,
+    tidyselect,
+    stringr,
+    lubridate,
+    fs
 Suggests: 
     knitr,
     rmarkdown,
